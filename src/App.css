@@ -12,23 +12,46 @@
   padding: 0;
 }
 
-html {
+/* html {
   font-size: 62.5%;
-}
+} */
 
 #root,
 body {
   height: 100vh;
   font-weight: 400;
   line-height: 1.4;
-  font-family: 'League Spartan', sans-serif;
+  font-family: 'Inconsolata', monospace;
 }
 
 .App {
-  height: 100%;
-  background-color: #282c34;
+  /* height: 100%; */
+  /* background-color: #282c34; */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
+  /* text-align: center; */
+}
+
+.ui-title-1,
+.ui-title-2,
+.ui-title-3,
+.ui-title-4,
+.ui-title-5,
+.ui-text {
+  padding: 0 0.4rem;
+  transition: 0.4s all ease;
+}
+
+.ui-title-1:focus,
+.ui-title-2:focus,
+.ui-title-3:focus,
+.ui-title-4:focus,
+.ui-title-5:focus,
+.ui-text:focus {
+  background-color: #f3f3f3;
+}
+
+.isUppercase {
+  text-transform: uppercase;
 }

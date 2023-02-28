@@ -1,0 +1,14 @@
+.MainTitle {
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+
+.MainTitle_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.MainTItle_logo {
+  font-weight: 700;
+}
