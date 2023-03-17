@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 
-// icons:
 import { ReactComponent as CameraIcon } from '../assets/icons/camera.svg';
 
 const Wrapper = styled.div`

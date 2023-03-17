@@ -4,7 +4,6 @@ import 'uimini';
 
 import '../styles/MainTitle.css';
 
-// icons:
 import { ReactComponent as PrintIcon } from '../assets/icons/printer.svg';
 
 const MainTitle = ({ onClick }) => {

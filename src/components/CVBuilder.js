@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useReactToPrint } from 'react-to-print';
+import InitInformation from './InitInformation.js';
 import MainTitle from './MainTitle.js';
 import Avatar from './Avatar.js';
 import Range from './Range.js';
 import Title from './Title.js';
 import Description from './Description.js';
+import uniqid from 'uniqid';
 import 'uimini';
 
 import { ReactComponent as MailIcon } from '../assets/icons/mail.svg';
@@ -40,12 +42,38 @@ const Content = styled.div`
 
 const CVBuilder = () => {
   const [skillsCounter, setSkillsCounter] = React.useState(1);
-  const [worksCounter, setWorksCounter] = React.useState(1);
+  const [information, setInformation] = React.useState(InitInformation);
 
   const componentRef = React.useRef();
   const handlePrintClick = useReactToPrint({
     content: () => componentRef.current,
   });
+
+  const handlePlusClick = () => {
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        workExperience: information.workExperience.concat({
+          text: '',
+          id: uniqid(),
+        }),
+      };
+    });
+  };
+
+  const handleMinusClick = (e) => {
+    const target = e.target;
+    const elemId = target.parentNode.firstChild.id;
+    console.log('target:', target.parentNode.firstChild.id);
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        workExperience: information.workExperience.filter(
+          (elem) => elem.id !== elemId
+        ),
+      };
+    });
+  };
 
   return (
     <div className='ui-wrapper'>
@@ -58,11 +86,8 @@ const CVBuilder = () => {
                 <Avatar />
               </Sidebar>
               <Content>
-                <Title>Nick Gerner</Title>
-                <Description>
-                  Experienced Software & Machine Learning Engineer with a
-                  demonstrated history.
-                </Description>
+                <Title>{information.name}</Title>
+                <Description>{information.description}</Description>
               </Content>
             </Row>
 
@@ -71,18 +96,18 @@ const CVBuilder = () => {
                 <Title size='3' isUppercase>
                   About me:
                 </Title>
-                <Description>Software Engineer</Description>
+                <Description>{information.aboutPrimary}</Description>
                 <Description isSecondary>
-                  Washington, DC | tocode.ru
+                  {information.aboutSecondary}
                 </Description>
 
                 <Description isPrimary style={{ marginTop: '2rem' }}>
                   <MailIcon style={{ width: '1rem', marginRight: '0.6rem' }} />
-                  nick@gmail.com
+                  {information.email}
                 </Description>
                 <Description isPrimary>
                   <PhoneIcon style={{ width: '1rem', marginRight: '0.6rem' }} />
-                  +1 588-6500
+                  {information.phone}
                 </Description>
               </Sidebar>
 
@@ -90,21 +115,23 @@ const CVBuilder = () => {
                 <Title size='3' isUppercase>
                   Education:
                 </Title>
-                <Description>
-                  Stanford University - BS Electrical Engineering
-                </Description>
+                <Description>{information.education}</Description>
 
                 <Title
                   size='3'
                   isUppercase
                   isShowButton
-                  onClick={() => setWorksCounter(worksCounter + 1)}
+                  onClick={handlePlusClick}
                   style={{ marginTop: '3.6rem' }}>
                   Work experience:
                 </Title>
-                {new Array(worksCounter).fill(1).map((_, i) => (
-                  <Description key={i}>
-                    {i + 1}. Solutions Architect, Stripe.
+                {information.workExperience.map((elem, index) => (
+                  <Description
+                    key={elem.id}
+                    id={elem.id}
+                    isShowButton
+                    onClick={handleMinusClick}>
+                    {index + 1}. {elem.text}
                   </Description>
                 ))}
 
@@ -118,7 +145,11 @@ const CVBuilder = () => {
                 </Title>
 
                 {new Array(skillsCounter).fill(1).map((_, i) => (
-                  <Range key={i} />
+                  <Range
+                    key={i}
+                    isShowButton
+                    onClick={() => setSkillsCounter(skillsCounter - 1)}
+                  />
                 ))}
               </Content>
             </Row>
