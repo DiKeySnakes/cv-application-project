@@ -41,7 +41,6 @@ const Content = styled.div`
 `;
 
 const CVBuilder = () => {
-  const [skillsCounter, setSkillsCounter] = React.useState(1);
   const [information, setInformation] = React.useState(InitInformation);
 
   const componentRef = React.useRef();
@@ -49,28 +48,51 @@ const CVBuilder = () => {
     content: () => componentRef.current,
   });
 
-  const handlePlusClick = () => {
+  const handleWorkExperienceAddClick = () => {
     setInformation((prevState) => {
       return {
         ...prevState,
         workExperience: information.workExperience.concat({
-          text: '',
+          text: 'Write here anything you want',
           id: uniqid(),
         }),
       };
     });
   };
 
-  const handleMinusClick = (e) => {
+  const handleWorkExperienceRemoveClick = (e) => {
     const target = e.target;
     const elemId = target.parentNode.firstChild.id;
-    console.log('target:', target.parentNode.firstChild.id);
     setInformation((prevState) => {
       return {
         ...prevState,
         workExperience: information.workExperience.filter(
           (elem) => elem.id !== elemId
         ),
+      };
+    });
+  };
+
+  const handleSkillsAddClick = () => {
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        skills: information.skills.concat({
+          name: 'You name it',
+          percent: 50,
+          id: uniqid(),
+        }),
+      };
+    });
+  };
+
+  const handleSkillsRemoveClick = (e) => {
+    const target = e.target;
+    const elemId = target.parentNode.id;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        skills: information.skills.filter((elem) => elem.id !== elemId),
       };
     });
   };
@@ -121,7 +143,7 @@ const CVBuilder = () => {
                   size='3'
                   isUppercase
                   isShowButton
-                  onClick={handlePlusClick}
+                  onClick={handleWorkExperienceAddClick}
                   style={{ marginTop: '3.6rem' }}>
                   Work experience:
                 </Title>
@@ -130,7 +152,7 @@ const CVBuilder = () => {
                     key={elem.id}
                     id={elem.id}
                     isShowButton
-                    onClick={handleMinusClick}>
+                    onClick={handleWorkExperienceRemoveClick}>
                     {index + 1}. {elem.text}
                   </Description>
                 ))}
@@ -139,16 +161,19 @@ const CVBuilder = () => {
                   size='3'
                   isUppercase
                   isShowButton
-                  onClick={() => setSkillsCounter(skillsCounter + 1)}
+                  onClick={handleSkillsAddClick}
                   style={{ marginTop: '3rem' }}>
                   Skills:
                 </Title>
 
-                {new Array(skillsCounter).fill(1).map((_, i) => (
+                {information.skills.map((elem) => (
                   <Range
-                    key={i}
+                    key={elem.id}
+                    id={elem.id}
                     isShowButton
-                    onClick={() => setSkillsCounter(skillsCounter - 1)}
+                    name={elem.name}
+                    percent={elem.percent}
+                    onClick={handleSkillsRemoveClick}
                   />
                 ))}
               </Content>

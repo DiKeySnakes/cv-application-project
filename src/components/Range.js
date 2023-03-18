@@ -15,10 +15,6 @@ const Wrapper = styled.div`
   &:hover button {
     opacity: 1 !important;
   }
-  p {
-    display: inline-block;
-    margin-bottom: 0;
-  }
 `;
 
 const Input = styled.input`
@@ -41,11 +37,13 @@ const Input = styled.input`
   }
 `;
 
-const Range = ({ isShowButton, onClick }) => {
-  const [value, setValue] = React.useState(90);
+const Range = ({ isShowButton, onClick, name, percent, id }) => {
+  const [value, setValue] = React.useState(percent);
   return (
-    <Wrapper>
-      <Description>Name - {value}%</Description>
+    <Wrapper id={id}>
+      <Description>
+        {name} - {value}%
+      </Description>
 
       <Input
         type='range'
@@ -56,7 +54,7 @@ const Range = ({ isShowButton, onClick }) => {
         onChange={(e) => setValue(e.target.value)}
       />
       {isShowButton && (
-        <button className='ui-button isLink' onClick={onClick}>
+        <button id={id} className='ui-button isLink' onClick={onClick}>
           {' '}
           -{' '}
         </button>
