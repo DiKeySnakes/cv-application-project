@@ -97,6 +97,29 @@ const CVBuilder = () => {
     });
   };
 
+  const handleEducationAddClick = () => {
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        education: information.education.concat({
+          text: 'Write here anything you want',
+          id: uniqid(),
+        }),
+      };
+    });
+  };
+
+  const handleEducationRemoveClick = (e) => {
+    const target = e.target;
+    const elemId = target.parentNode.firstChild.id;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        education: information.education.filter((elem) => elem.id !== elemId),
+      };
+    });
+  };
+
   return (
     <div className='ui-wrapper'>
       <MainTitle onClick={handlePrintClick} />
@@ -134,17 +157,11 @@ const CVBuilder = () => {
               </Sidebar>
 
               <Content>
-                <Title size='3' isUppercase>
-                  Education:
-                </Title>
-                <Description>{information.education}</Description>
-
                 <Title
                   size='3'
                   isUppercase
                   isShowButton
-                  onClick={handleWorkExperienceAddClick}
-                  style={{ marginTop: '3.6rem' }}>
+                  onClick={handleWorkExperienceAddClick}>
                   Work experience:
                 </Title>
                 {information.workExperience.map((elem, index) => (
@@ -154,6 +171,24 @@ const CVBuilder = () => {
                     isShowButton
                     onClick={handleWorkExperienceRemoveClick}>
                     {index + 1}. {elem.text}
+                  </Description>
+                ))}
+
+                <Title
+                  size='3'
+                  isUppercase
+                  isShowButton
+                  onClick={handleEducationAddClick}
+                  style={{ marginTop: '3.6rem' }}>
+                  Education:
+                </Title>
+                {information.education.map((elem) => (
+                  <Description
+                    key={elem.id}
+                    id={elem.id}
+                    isShowButton
+                    onClick={handleEducationRemoveClick}>
+                    {elem.text}
                   </Description>
                 ))}
 
