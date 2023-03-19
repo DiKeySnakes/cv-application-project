@@ -8,10 +8,12 @@ import { ReactComponent as PrintIcon } from '../assets/icons/printer.svg';
 
 const MainTitle = ({ onClick }) => {
   return (
-    <header className='MainTitle'>
+    <header className='MainTitle' style={{ marginTop: '5rem' }}>
       <div className='ui-container'>
         <div className='MainTitle_content'>
-          <span className='MainTitle_logo'>Cv builder</span>
+          <span className='MainTitle_logo'>
+            To print your CV press the button
+          </span>
           <button className='ui-button isLink' onClick={onClick}>
             <PrintIcon style={{ width: '1rem', marginRight: '0.6rem' }} />
             Print

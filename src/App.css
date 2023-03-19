@@ -49,7 +49,8 @@ body {
 .ui-title-4:focus,
 .ui-title-5:focus,
 .ui-text:focus {
-  background-color: #f3f3f3;
+  /* background-color: #f3f3f3; */
+  background-color: #edded9;
 }
 
 .isUppercase {

@@ -1,6 +1,6 @@
 // import Header from './components/Header';
 // import './styles/Header.css';
-// import Footer from './components/Footer.js';
+import Footer from './components/Footer.js';
 // import './styles/Footer.css';
 import CVBuilder from './components/CVBuilder';
 
@@ -11,7 +11,7 @@ function App() {
     <div className='App'>
       {/* <Header /> */}
       <CVBuilder />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
