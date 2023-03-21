@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import 'uimini';
 
 const Wrapper = styled.div`
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   button {
     display: inline-block;
     transition: 0.1s all ease;
@@ -51,7 +51,7 @@ const Title = ({
 };
 
 Title.propTypes = {
-  size: propTypes.oneOf(['1', '2', '3']),
+  size: propTypes.oneOf(['1', '2', '3', '4', '5']),
   isUppercase: propTypes.bool,
   isShowButton: propTypes.bool,
   className: propTypes.string,

@@ -19,16 +19,6 @@ const InitInformation = {
       id: uniqid(),
     },
   ],
-  workExperience: [
-    {
-      text: 'Aug 2011 - Sep 2019, Senior Web Developer, Allen Hamilton, San Diego. Planned, developed, tested, deployed, and maintained web applications. Provided effective troubleshooting and remediation for web applications. Wrote SQL statements and stored procedures. Worked well independently and within a team setting. Effectively translated client requirements into application designs and systems requirements. Followed policies and procedures related to application methods and quality standards at all times.',
-      id: uniqid(),
-    },
-    {
-      text: "Aug 2008 - Jul 2011, Junior Web Developer, Millbank and Morrison, Los Angeles. Worked as a productive and positive team member to design, code, test, report, and debug operations. Managed front-end and back-end development in the company's Portfolio Analyst, Employee Track, and Account Management systems. Successfully identified, diagnosed, and fixed website problems, including broken links, typographical errors, and formatting issues. Helped to achieve a consistent look and visual theme across the website by promoting uniform fonts, formatting, images, and layout. Worked to assess competing websites in regards to content, look, and feel. Evaluated and became knowledgeable in new standards, technologies, and trends in website development.",
-      id: uniqid(),
-    },
-  ],
   skills: [
     { name: 'Visual Design Skills', percent: '80', id: uniqid() },
     {

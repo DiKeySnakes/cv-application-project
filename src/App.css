@@ -53,6 +53,10 @@ body {
   background-color: #edded9;
 }
 
+.ui-li:focus {
+  background-color: #edded9;
+}
+
 .isUppercase {
   text-transform: uppercase;
 }

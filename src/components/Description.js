@@ -47,7 +47,7 @@ const Description = ({
       {isShowButton && (
         <button className='ui-button isLink' onClick={onClick}>
           {' '}
-          -{' '}
+          Remove{' '}
         </button>
       )}
     </Wrapper>
