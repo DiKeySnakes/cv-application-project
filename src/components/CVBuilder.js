@@ -160,11 +160,29 @@ const CVBuilder = () => {
 
   const handleEducationRemoveClick = (e) => {
     const target = e.target;
-    const elemId = target.parentNode.firstChild.id;
+    const elemId = target.parentNode.parentNode.firstChild.firstChild.id;
     setInformation((prevState) => {
       return {
         ...prevState,
         education: information.education.filter((elem) => elem.id !== elemId),
+      };
+    });
+  };
+
+  const handleEducationSave = (e) => {
+    const target = e.target;
+    const text = target.parentNode.parentNode.firstChild.firstChild.textContent;
+    console.log('text:', text);
+    const elemId = target.parentNode.parentNode.firstChild.firstChild.id;
+    console.log('elemId:', elemId);
+    const result = information.education.find((elem) => elem.id === elemId);
+    console.log('result:', result);
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        education: information.education
+          .filter((elem) => elem.id !== elemId)
+          .concat({ text: text, id: uniqid() }),
       };
     });
   };
@@ -465,13 +483,25 @@ const CVBuilder = () => {
                     Education:
                   </Title>
                   {information.education.map((elem) => (
-                    <Description
-                      key={elem.id}
-                      id={elem.id}
-                      isShowButton
-                      onClick={handleEducationRemoveClick}>
-                      {elem.text}
-                    </Description>
+                    <div key={uniqid()}>
+                      <Description key={elem.id} id={elem.id}>
+                        {elem.text}
+                      </Description>
+                      <ButtonGroup key={uniqid()}>
+                        <Button
+                          key={uniqid()}
+                          className='ui-button isLink'
+                          onClick={handleEducationSave}>
+                          Save element
+                        </Button>
+                        <Button
+                          key={uniqid()}
+                          className='ui-button isLink'
+                          onClick={handleEducationRemoveClick}>
+                          Remove element
+                        </Button>
+                      </ButtonGroup>
+                    </div>
                   ))}
 
                   <Title
