@@ -4,16 +4,12 @@ import { useReactToPrint } from 'react-to-print';
 import InitInformation from './InitInformation.js';
 import InitWorkExperience from './InitWorkExperience.js';
 import Header from './Header.js';
-// import MainTitle from './MainTitle.js';
 import Avatar from './Avatar.js';
 import Range from './Range.js';
 import Title from './Title.js';
 import Description from './Description.js';
 import uniqid from 'uniqid';
 import 'uimini';
-
-import { ReactComponent as MailIcon } from '../assets/icons/mail.svg';
-import { ReactComponent as PhoneIcon } from '../assets/icons/phone.svg';
 
 const Wrapper = styled.div`
   max-width: 800px;
@@ -114,7 +110,6 @@ const CVBuilder = () => {
 
   const handleWorkExperienceRemoveClick = (e) => {
     const target = e.target;
-    console.log('target:', target);
     const elemId = target.parentNode.id;
     const newWorkExperience = workExperience.filter(
       (elem) => elem.id !== elemId
@@ -146,6 +141,24 @@ const CVBuilder = () => {
     });
   };
 
+  const handleSkillsSaveClick = (e) => {
+    const target = e.target;
+    const elemId = target.parentNode.id;
+    const text = target.parentNode.firstChild.firstChild.innerText;
+    const input = text;
+    const fields = input.split('-');
+    const name = fields[0].trim();
+    const percent = fields[1].replace('%', '').trim();
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        skills: information.skills
+          .filter((elem) => elem.id !== elemId)
+          .concat({ name: name, percent: percent, id: uniqid() }),
+      };
+    });
+  };
+
   const handleEducationAddClick = () => {
     setInformation((prevState) => {
       return {
@@ -172,11 +185,7 @@ const CVBuilder = () => {
   const handleEducationSave = (e) => {
     const target = e.target;
     const text = target.parentNode.parentNode.firstChild.firstChild.textContent;
-    console.log('text:', text);
     const elemId = target.parentNode.parentNode.firstChild.firstChild.id;
-    console.log('elemId:', elemId);
-    const result = information.education.find((elem) => elem.id === elemId);
-    console.log('result:', result);
     setInformation((prevState) => {
       return {
         ...prevState,
@@ -189,7 +198,6 @@ const CVBuilder = () => {
 
   const handleNameSave = (e) => {
     const target = e.target.parentNode.firstChild;
-    console.log('target:', target);
     setInformation((prevState) => {
       return {
         ...prevState,
@@ -200,7 +208,6 @@ const CVBuilder = () => {
 
   const handleDescriptionSave = (e) => {
     const target = e.target.parentNode.firstChild;
-    console.log('target:', target);
     setInformation((prevState) => {
       return {
         ...prevState,
@@ -212,11 +219,8 @@ const CVBuilder = () => {
   const handleWorkExpTitleSave = (e) => {
     const target = e.target;
     const text = target.parentNode.firstChild.firstChild.textContent;
-    console.log('title:', text);
     const elemId = target.parentNode.firstChild.firstChild.id;
-    console.log('elemId:', elemId);
     const result = workExperience.find((elem) => elem.id === elemId);
-    console.log('result:', result);
     const newWorkExperience = workExperience.filter(
       (elem) => elem.id !== elemId
     );
@@ -230,11 +234,8 @@ const CVBuilder = () => {
   const handleWorkExpPeriodSave = (e) => {
     const target = e.target;
     const text = target.parentNode.firstChild.firstChild.textContent;
-    console.log('period:', text);
     const elemId = target.parentNode.parentNode.firstChild.firstChild.id;
-    console.log('elemId:', elemId);
     const result = workExperience.find((elem) => elem.id === elemId);
-    console.log('result:', result);
     const newWorkExperience = workExperience.filter(
       (elem) => elem.id !== elemId
     );
@@ -248,11 +249,8 @@ const CVBuilder = () => {
   const handleWorkExpEmployerSave = (e) => {
     const target = e.target;
     const text = target.parentNode.firstChild.firstChild.textContent;
-    console.log('employer:', text);
     const elemId = target.parentNode.parentNode.firstChild.firstChild.id;
-    console.log('elemId:', elemId);
     const result = workExperience.find((elem) => elem.id === elemId);
-    console.log('result:', result);
     const newWorkExperience = workExperience.filter(
       (elem) => elem.id !== elemId
     );
@@ -266,11 +264,8 @@ const CVBuilder = () => {
   const handleWorkExpCitySave = (e) => {
     const target = e.target;
     const text = target.parentNode.firstChild.firstChild.textContent;
-    console.log('city:', text);
     const elemId = target.parentNode.parentNode.firstChild.firstChild.id;
-    console.log('elemId:', elemId);
     const result = workExperience.find((elem) => elem.id === elemId);
-    console.log('result:', result);
     const newWorkExperience = workExperience.filter(
       (elem) => elem.id !== elemId
     );
@@ -283,10 +278,8 @@ const CVBuilder = () => {
 
   const handleAddListItem = (e) => {
     const target = e.target.parentNode.firstChild;
-    console.log('target:', target);
     const itemId = target.id;
     const result = workExperience.find((elem) => elem.id === itemId);
-    console.log('result:', result);
     const newWorkExperience = workExperience.filter(
       (elem) => elem.id !== itemId
     );
@@ -297,8 +290,6 @@ const CVBuilder = () => {
         id: uniqid(),
       }),
     };
-    console.log('newResult:', newResult);
-    console.log('newWorkExperience:', newWorkExperience);
     setWorkExperience(newWorkExperience.concat(newResult));
   };
 
@@ -306,10 +297,7 @@ const CVBuilder = () => {
     const target = e.target;
     const elemId = target.parentNode.parentNode.parentNode.id;
     const itemId = target.parentNode.parentNode.firstChild.id;
-    console.log('itemId:', itemId);
-    console.log('elemId:', elemId);
     const result = workExperience.find((elem) => elem.id === elemId);
-    console.log('result:', result);
     const newWorkExperience = workExperience.filter(
       (elem) => elem.id !== elemId
     );
@@ -325,11 +313,7 @@ const CVBuilder = () => {
     const elemId = target.parentNode.parentNode.parentNode.id;
     const itemId = target.parentNode.parentNode.firstChild.id;
     const text = target.parentNode.parentNode.firstChild.firstChild.textContent;
-    console.log('text:', text);
-    console.log('itemId:', itemId);
-    console.log('elemId:', elemId);
     const result = workExperience.find((elem) => elem.id === elemId);
-    console.log('result:', result);
     const newWorkExperience = workExperience.filter(
       (elem) => elem.id !== elemId
     );
@@ -339,8 +323,110 @@ const CVBuilder = () => {
         .filter((elem) => elem.id !== itemId)
         .concat({ activity: text, id: uniqid() }),
     };
-    console.log('newResult:', newResult);
     setWorkExperience(newWorkExperience.concat(newResult));
+  };
+
+  const handleReferencesSave = (e) => {
+    const target = e.target;
+    const text = target.parentNode.firstChild.textContent;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        preferences: text,
+      };
+    });
+  };
+
+  const handleAddLanguageElem = () => {
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        languages: information.languages.concat({
+          text: 'new language',
+          id: uniqid(),
+        }),
+      };
+    });
+  };
+
+  const handleRemoveLanguageElem = (e) => {
+    const target = e.target;
+    const elemId = target.parentNode.parentNode.firstChild.firstChild.id;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        languages: information.languages.filter((elem) => elem.id !== elemId),
+      };
+    });
+  };
+
+  const handleLanguageElemSave = (e) => {
+    const target = e.target;
+    const elemId = target.parentNode.parentNode.firstChild.firstChild.id;
+    const text = target.parentNode.parentNode.firstChild.firstChild.textContent;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        languages: information.languages
+          .filter((elem) => elem.id !== elemId)
+          .concat({ text: text, id: uniqid() }),
+      };
+    });
+  };
+
+  const handleAboutPrimarySave = (e) => {
+    const target = e.target;
+    const text = target.parentNode.firstChild.textContent;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        aboutPrimary: text,
+      };
+    });
+  };
+
+  const handleAboutSecondarySave = (e) => {
+    const target = e.target;
+    const text = target.parentNode.firstChild.textContent;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        aboutSecondary: text,
+      };
+    });
+  };
+
+  const handleAddressSave = (e) => {
+    const target = e.target;
+    const text = target.parentNode.firstChild.textContent;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        address: text,
+      };
+    });
+  };
+
+  const handleEmailSave = (e) => {
+    const target = e.target;
+    const text = target.parentNode.firstChild.textContent;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        email: text,
+      };
+    });
+  };
+
+  const handlePhoneSave = (e) => {
+    const target = e.target;
+    const text = target.parentNode.firstChild.textContent;
+    setInformation((prevState) => {
+      return {
+        ...prevState,
+        phone: text,
+      };
+    });
   };
 
   return (
@@ -357,44 +443,154 @@ const CVBuilder = () => {
                   <Avatar />
                 </Sidebar>
                 <Content>
-                  <Title isShowButton onClick={handleNameSave}>
+                  <Title
+                    isShowButton
+                    onClick={handleNameSave}
+                    buttonText='Save name'>
                     {information.name}
                   </Title>
-                  <Description isShowButton onClick={handleDescriptionSave}>
+                  <Description
+                    isShowButton
+                    onClick={handleDescriptionSave}
+                    buttonText='Save description'>
                     {information.description}
                   </Description>
                 </Content>
               </Row>
-
               <Row>
                 <Sidebar>
                   <Title size='3' isUppercase>
                     About me:
                   </Title>
-                  <Description>{information.aboutPrimary}</Description>
-                  <Description isSecondary>
+                  <Description
+                    isShowButton
+                    buttonText='save'
+                    onClick={handleAboutPrimarySave}>
+                    {information.aboutPrimary}
+                  </Description>
+                  <Description
+                    isSecondary
+                    isShowButton
+                    buttonText='Save'
+                    onClick={handleAboutSecondarySave}>
                     {information.aboutSecondary}
                   </Description>
-
-                  <Description isPrimary style={{ marginTop: '2rem' }}>
-                    <MailIcon
-                      style={{ width: '1rem', marginRight: '0.6rem' }}
-                    />
-                    {information.email}
-                  </Description>
-                  <Description isPrimary>
-                    <PhoneIcon
-                      style={{ width: '1rem', marginRight: '0.6rem' }}
-                    />
-                    {information.phone}
-                  </Description>
                 </Sidebar>
-
                 <Content>
                   <Title
                     size='3'
                     isUppercase
                     isShowButton
+                    buttonText='Add element'
+                    onClick={handleEducationAddClick}>
+                    Education:
+                  </Title>
+                  {information.education.map((elem) => (
+                    <div key={uniqid()}>
+                      <Description key={elem.id} id={elem.id}>
+                        {elem.text}
+                      </Description>
+                      <ButtonGroup key={uniqid()}>
+                        <Button
+                          key={uniqid()}
+                          className='ui-button isLink'
+                          onClick={handleEducationSave}>
+                          Save element
+                        </Button>
+                        <Button
+                          key={uniqid()}
+                          className='ui-button isLink'
+                          onClick={handleEducationRemoveClick}>
+                          Remove element
+                        </Button>
+                      </ButtonGroup>
+                    </div>
+                  ))}
+                </Content>
+              </Row>
+              <Row>
+                <Sidebar>
+                  <Title size={'3'} isUppercase>
+                    Contacts:
+                  </Title>
+                  <Description
+                    isPrimary
+                    style={{ marginTop: '2rem' }}
+                    isShowButton
+                    buttonText='Save'
+                    onClick={handleAddressSave}>
+                    <i className='fa-solid fa-location-dot'></i>{' '}
+                    {information.address}
+                  </Description>
+                  <Description
+                    isPrimary
+                    isShowButton
+                    buttonText='Save'
+                    onClick={handleEmailSave}>
+                    <i className='fa-solid fa-envelope'></i> {information.email}
+                  </Description>
+                  <Description
+                    isPrimary
+                    isShowButton
+                    buttonText='Save'
+                    onClick={handlePhoneSave}>
+                    <i className='fa-solid fa-phone'></i> {information.phone}
+                  </Description>
+                  <Title
+                    size='3'
+                    isUppercase
+                    isShowButton
+                    buttonText='Add element'
+                    onClick={handleSkillsAddClick}>
+                    Skills:
+                  </Title>
+                  {information.skills.map((elem) => (
+                    <Range
+                      key={elem.id}
+                      id={elem.id}
+                      isShowButton
+                      name={elem.name}
+                      percent={elem.percent}
+                      onClickSave={handleSkillsSaveClick}
+                      onClickRemove={handleSkillsRemoveClick}
+                    />
+                  ))}
+                  <Title
+                    size={'3'}
+                    isUppercase
+                    isShowButton
+                    buttonText='Add element'
+                    onClick={handleAddLanguageElem}>
+                    Languages:
+                  </Title>
+                  {information.languages.map((elem) => (
+                    <div key={uniqid()}>
+                      <Description key={uniqid()} id={elem.id}>
+                        {elem.text}
+                      </Description>
+                      <ButtonGroup key={uniqid()}>
+                        <Button
+                          key={uniqid()}
+                          className='ui-button isLink'
+                          onClick={handleLanguageElemSave}>
+                          Save
+                        </Button>
+                        <Button
+                          key={uniqid()}
+                          className='ui-button isLink'
+                          onClick={handleRemoveLanguageElem}>
+                          Remove
+                        </Button>
+                      </ButtonGroup>
+                    </div>
+                  ))}
+                </Sidebar>
+                <Content>
+                  <Title
+                    size='3'
+                    isUppercase
+                    isShowButton
+                    buttonText='Add element'
                     onClick={handleWorkExperienceAddClick}>
                     Work experience:
                   </Title>
@@ -404,38 +600,37 @@ const CVBuilder = () => {
                         id={elem.id}
                         size={'4'}
                         isShowButton
+                        buttonText='Add list item'
                         onClick={handleAddListItem}>
                         {index + 1}. {elem.title}
                       </Title>
-
                       <Button
                         key={uniqid()}
                         className='ui-button isLink'
                         onClick={handleWorkExpTitleSave}>
                         Save title
                       </Button>
-
                       <Description
                         isSecondary
                         isShowButton
+                        buttonText='Save'
                         onClick={handleWorkExpPeriodSave}>
                         <span>{elem.period}</span>
                       </Description>
-
                       <Description
                         isSecondary
                         isShowButton
+                        buttonText='Save'
                         onClick={handleWorkExpEmployerSave}>
                         <span>{elem.employer}</span>
                       </Description>
-
                       <Description
                         isSecondary
                         isShowButton
+                        buttonText='Save'
                         onClick={handleWorkExpCitySave}>
                         <span>{elem.city}</span>
                       </Description>
-
                       <ul id={elem.id} className='ui-ul'>
                         {elem.list.map((item) => (
                           <div key={uniqid()}>
@@ -473,56 +668,20 @@ const CVBuilder = () => {
                       </Button>
                     </div>
                   ))}
-
-                  <Title
-                    size='3'
-                    isUppercase
-                    isShowButton
-                    onClick={handleEducationAddClick}
-                    style={{ marginTop: '3.6rem' }}>
-                    Education:
+                </Content>
+              </Row>
+              <Row>
+                <Sidebar></Sidebar>
+                <Content>
+                  <Title size={'3'} isUppercase>
+                    References:
                   </Title>
-                  {information.education.map((elem) => (
-                    <div key={uniqid()}>
-                      <Description key={elem.id} id={elem.id}>
-                        {elem.text}
-                      </Description>
-                      <ButtonGroup key={uniqid()}>
-                        <Button
-                          key={uniqid()}
-                          className='ui-button isLink'
-                          onClick={handleEducationSave}>
-                          Save element
-                        </Button>
-                        <Button
-                          key={uniqid()}
-                          className='ui-button isLink'
-                          onClick={handleEducationRemoveClick}>
-                          Remove element
-                        </Button>
-                      </ButtonGroup>
-                    </div>
-                  ))}
-
-                  <Title
-                    size='3'
-                    isUppercase
+                  <Description
                     isShowButton
-                    onClick={handleSkillsAddClick}
-                    style={{ marginTop: '3rem' }}>
-                    Skills:
-                  </Title>
-
-                  {information.skills.map((elem) => (
-                    <Range
-                      key={elem.id}
-                      id={elem.id}
-                      isShowButton
-                      name={elem.name}
-                      percent={elem.percent}
-                      onClick={handleSkillsRemoveClick}
-                    />
-                  ))}
+                    buttonText='Save'
+                    onClick={handleReferencesSave}>
+                    {information.references}
+                  </Description>
                 </Content>
               </Row>
             </div>

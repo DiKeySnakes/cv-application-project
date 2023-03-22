@@ -24,6 +24,7 @@ const Description = ({
   isPrimary,
   isSecondary,
   isShowButton,
+  buttonText,
   className,
   onClick,
   children,
@@ -47,7 +48,7 @@ const Description = ({
       {isShowButton && (
         <button className='ui-button isLink' onClick={onClick}>
           {' '}
-          Remove{' '}
+          {buttonText}{' '}
         </button>
       )}
     </Wrapper>
@@ -58,6 +59,7 @@ Description.propTypes = {
   isPrimary: propTypes.bool,
   isSecondary: propTypes.bool,
   isShowButton: propTypes.bool,
+  buttonText: propTypes.string,
   className: propTypes.string,
   onClick: propTypes.func,
   children: propTypes.node.isRequired,
@@ -67,6 +69,7 @@ Description.defaultProps = {
   isPrimary: false,
   isSecondary: false,
   isShowButton: false,
+  buttonText: 'X',
   className: '',
   onClick: () => {},
 };

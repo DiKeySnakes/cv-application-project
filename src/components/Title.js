@@ -24,6 +24,7 @@ const Title = ({
   size,
   isUppercase,
   isShowButton,
+  buttonText,
   className,
   onClick,
   children,
@@ -43,7 +44,7 @@ const Title = ({
       </p>
       {isShowButton && (
         <button className='ui-button isLink' onClick={onClick}>
-          +
+          {buttonText}
         </button>
       )}
     </Wrapper>
@@ -54,6 +55,7 @@ Title.propTypes = {
   size: propTypes.oneOf(['1', '2', '3', '4', '5']),
   isUppercase: propTypes.bool,
   isShowButton: propTypes.bool,
+  buttonText: propTypes.string,
   className: propTypes.string,
   onClick: propTypes.func,
   children: propTypes.node.isRequired,
@@ -63,6 +65,7 @@ Title.defaultProps = {
   size: '1',
   isUppercase: false,
   isShowButton: false,
+  buttonText: 'Y',
   className: '',
   onClick: () => {},
 };

@@ -5,7 +5,7 @@ import Description from './Description.js';
 
 const Wrapper = styled.div`
   display: inline-block;
-  width: 33%;
+  width: 100%;
   margin: 0.4rem 0;
   button {
     display: inline-block;
@@ -37,7 +37,14 @@ const Input = styled.input`
   }
 `;
 
-const Range = ({ isShowButton, onClick, name, percent, id }) => {
+const Range = ({
+  isShowButton,
+  onClickSave,
+  onClickRemove,
+  name,
+  percent,
+  id,
+}) => {
   const [value, setValue] = React.useState(percent);
   return (
     <Wrapper id={id}>
@@ -47,17 +54,23 @@ const Range = ({ isShowButton, onClick, name, percent, id }) => {
 
       <Input
         type='range'
-        min='0'
+        min='5'
         max='100'
-        step='10'
+        step='5'
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
       {isShowButton && (
-        <button id={id} className='ui-button isLink' onClick={onClick}>
-          {' '}
-          -{' '}
-        </button>
+        <>
+          <button id={id} className='ui-button isLink' onClick={onClickSave}>
+            {' '}
+            Save{' '}
+          </button>
+          <button id={id} className='ui-button isLink' onClick={onClickRemove}>
+            {' '}
+            Remove{' '}
+          </button>
+        </>
       )}
     </Wrapper>
   );

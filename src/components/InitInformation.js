@@ -7,6 +7,7 @@ const InitInformation = {
   aboutPrimary: 'Skill highlights',
   aboutSecondary:
     'Project management. Strong decision maker. Complex problem solver. Creative design. Innovative. Service focused.',
+  address: '4670 Garrett Street Philadelphia US',
   email: 'gerner@gmail.com',
   phone: '+1 588-6500',
   education: [
@@ -30,6 +31,12 @@ const InitInformation = {
     { name: 'Database Management', percent: '70', id: uniqid() },
     { name: 'Strong Leadership Skills', percent: '70', id: uniqid() },
     { name: 'Programming', percent: '70', id: uniqid() },
+  ],
+  references: 'References available on request.',
+  languages: [
+    { text: 'English - native', id: uniqid() },
+    { text: 'Spanish - C2', id: uniqid() },
+    { text: 'Polish - A1', id: uniqid() },
   ],
 };
 
