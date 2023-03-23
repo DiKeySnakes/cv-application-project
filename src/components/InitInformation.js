@@ -1,14 +1,14 @@
 import uniqid from 'uniqid';
 
 const InitInformation = {
-  name: 'Nick Gerner',
+  name: 'John Doe',
   description:
     'Experienced web developer adept in all stages of advanced web development. Knowledgeable in user interface, testing, and debugging processes. Bringing forth expertise in design, installation, testing and maintenance of web systems. Equipped with a diverse and promising skill-set. Proficient in an assortment of technologies, including Java, ASP.NET, C#, IIS, Tomcat, and Microsoft SQL Server. Able to effectively self-manage during independent projects, as well as collaborate in a team setting.',
   aboutPrimary: 'Skill highlights',
   aboutSecondary:
-    'Project management. Strong decision maker. Complex problem solver. Creative design. Innovative. Service focused.',
+    'Project management. Strong decision maker. Complex problem solver. Creative designer. Innovative. Service focused.',
   address: '4670 Garrett Street Philadelphia US',
-  email: 'gerner@gmail.com',
+  email: 'doe@gmail.com',
   phone: '+1 588-6500',
   education: [
     {

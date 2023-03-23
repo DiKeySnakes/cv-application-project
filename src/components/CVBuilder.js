@@ -12,7 +12,7 @@ import uniqid from 'uniqid';
 import 'uimini';
 
 const Wrapper = styled.div`
-  max-width: 800px;
+  max-width: 95%;
   margin: 2rem auto;
   padding: 3rem 2rem;
   background-color: #eee9da;
@@ -37,6 +37,21 @@ const Sidebar = styled.div`
 const Content = styled.div`
   flex: 3;
   margin-left: 1rem;
+`;
+
+const Left = styled.div`
+  flex: 1;
+`;
+
+const Right = styled.div`
+  flex: 1;
+`;
+
+const AuxillaryWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Button = styled.button`
@@ -435,260 +450,372 @@ const CVBuilder = () => {
       <div className='ui-wrapper'>
         <div
           className='ui-content-wrapper'
-          style={{ backgroundColor: '#6096b4' }}>
-          <Wrapper>
-            <div className='ui-container' ref={componentRef}>
-              <Row itemsCenter>
-                <Sidebar>
-                  <Avatar />
-                </Sidebar>
-                <Content>
-                  <Title
-                    isShowButton
-                    onClick={handleNameSave}
-                    buttonText='Save name'>
-                    {information.name}
-                  </Title>
-                  <Description
-                    isShowButton
-                    onClick={handleDescriptionSave}
-                    buttonText='Save description'>
-                    {information.description}
-                  </Description>
-                </Content>
-              </Row>
-              <Row>
-                <Sidebar>
-                  <Title size='3' isUppercase>
-                    About me:
-                  </Title>
-                  <Description
-                    isShowButton
-                    buttonText='save'
-                    onClick={handleAboutPrimarySave}>
-                    {information.aboutPrimary}
-                  </Description>
-                  <Description
-                    isSecondary
-                    isShowButton
-                    buttonText='Save'
-                    onClick={handleAboutSecondarySave}>
-                    {information.aboutSecondary}
-                  </Description>
-                </Sidebar>
-                <Content>
-                  <Title
-                    size='3'
-                    isUppercase
-                    isShowButton
-                    buttonText='Add element'
-                    onClick={handleEducationAddClick}>
-                    Education:
-                  </Title>
-                  {information.education.map((elem) => (
-                    <div key={uniqid()}>
-                      <Description key={elem.id} id={elem.id}>
-                        {elem.text}
-                      </Description>
-                      <ButtonGroup key={uniqid()}>
-                        <Button
-                          key={uniqid()}
-                          className='ui-button isLink'
-                          onClick={handleEducationSave}>
-                          Save element
-                        </Button>
-                        <Button
-                          key={uniqid()}
-                          className='ui-button isLink'
-                          onClick={handleEducationRemoveClick}>
-                          Remove element
-                        </Button>
-                      </ButtonGroup>
-                    </div>
-                  ))}
-                </Content>
-              </Row>
-              <Row>
-                <Sidebar>
-                  <Title size={'3'} isUppercase>
-                    Contacts:
-                  </Title>
-                  <Description
-                    isPrimary
-                    style={{ marginTop: '2rem' }}
-                    isShowButton
-                    buttonText='Save'
-                    onClick={handleAddressSave}>
-                    <i className='fa-solid fa-location-dot'></i>{' '}
-                    {information.address}
-                  </Description>
-                  <Description
-                    isPrimary
-                    isShowButton
-                    buttonText='Save'
-                    onClick={handleEmailSave}>
-                    <i className='fa-solid fa-envelope'></i> {information.email}
-                  </Description>
-                  <Description
-                    isPrimary
-                    isShowButton
-                    buttonText='Save'
-                    onClick={handlePhoneSave}>
-                    <i className='fa-solid fa-phone'></i> {information.phone}
-                  </Description>
-                  <Title
-                    size='3'
-                    isUppercase
-                    isShowButton
-                    buttonText='Add element'
-                    onClick={handleSkillsAddClick}>
-                    Skills:
-                  </Title>
-                  {information.skills.map((elem) => (
-                    <Range
-                      key={elem.id}
-                      id={elem.id}
-                      isShowButton
-                      name={elem.name}
-                      percent={elem.percent}
-                      onClickSave={handleSkillsSaveClick}
-                      onClickRemove={handleSkillsRemoveClick}
-                    />
-                  ))}
-                  <Title
-                    size={'3'}
-                    isUppercase
-                    isShowButton
-                    buttonText='Add element'
-                    onClick={handleAddLanguageElem}>
-                    Languages:
-                  </Title>
-                  {information.languages.map((elem) => (
-                    <div key={uniqid()}>
+          style={{
+            backgroundColor: '#6096b4',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+          }}>
+          <Left>
+            <Wrapper>
+              <div className='ui-container' ref={componentRef}>
+                <Row itemsCenter>
+                  <Sidebar>
+                    <Avatar />
+                  </Sidebar>
+                  <Content>
+                    <Title>{information.name}</Title>
+                    <Description>{information.description}</Description>
+                  </Content>
+                </Row>
+                <Row>
+                  <Sidebar>
+                    <Title size='3' isUppercase>
+                      About me:
+                    </Title>
+                    <Description>{information.aboutPrimary}</Description>
+                    <Description isSecondary>
+                      {information.aboutSecondary}
+                    </Description>
+                    <Title size='3' isUppercase style={{ marginTop: '2rem' }}>
+                      Skills:
+                    </Title>
+                    {information.skills.map((elem) => (
+                      <Range
+                        key={elem.id}
+                        id={elem.id}
+                        name={elem.name}
+                        percent={elem.percent}
+                      />
+                    ))}
+                  </Sidebar>
+                  <Content>
+                    <Title size='3' isUppercase>
+                      Work experience:
+                    </Title>
+                    {workExperience.map((elem, index) => (
+                      <div key={uniqid()} id={elem.id}>
+                        <Title
+                          id={elem.id}
+                          size={'4'}
+                          style={{ marginTop: '1rem' }}>
+                          {index + 1}. {elem.title}
+                        </Title>
+                        <Description isSecondary>
+                          <span>{elem.period}</span>
+                        </Description>
+                        <AuxillaryWrapper>
+                          <Description isSecondary>
+                            <span>{elem.employer}</span>
+                          </Description>
+                          <Description isSecondary>
+                            <span>{elem.city}</span>
+                          </Description>
+                        </AuxillaryWrapper>
+                        <ul id={elem.id} className='ui-ul'>
+                          {elem.list.map((item) => (
+                            <li key={uniqid()} id={item.id} className='ui-li'>
+                              {item.activity}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </Content>
+                </Row>
+                <Row>
+                  <Sidebar>
+                    <Title size={'3'} isUppercase style={{ marginTop: '2rem' }}>
+                      Contacts:
+                    </Title>
+                    <Description isPrimary>
+                      <i className='fa-solid fa-location-dot'></i>{' '}
+                      {information.address}
+                    </Description>
+                    <Description isPrimary>
+                      <i className='fa-solid fa-envelope'></i>{' '}
+                      {information.email}
+                    </Description>
+                    <Description isPrimary>
+                      <i className='fa-solid fa-phone'></i> {information.phone}
+                    </Description>
+                    <Title size={'3'} isUppercase style={{ marginTop: '2rem' }}>
+                      Languages:
+                    </Title>
+                    {information.languages.map((elem) => (
                       <Description key={uniqid()} id={elem.id}>
                         {elem.text}
                       </Description>
-                      <ButtonGroup key={uniqid()}>
-                        <Button
-                          key={uniqid()}
-                          className='ui-button isLink'
-                          onClick={handleLanguageElemSave}>
-                          Save
-                        </Button>
-                        <Button
-                          key={uniqid()}
-                          className='ui-button isLink'
-                          onClick={handleRemoveLanguageElem}>
-                          Remove
-                        </Button>
-                      </ButtonGroup>
-                    </div>
-                  ))}
-                </Sidebar>
-                <Content>
-                  <Title
-                    size='3'
-                    isUppercase
-                    isShowButton
-                    buttonText='Add element'
-                    onClick={handleWorkExperienceAddClick}>
-                    Work experience:
-                  </Title>
-                  {workExperience.map((elem, index) => (
-                    <div key={uniqid()} id={elem.id}>
-                      <Title
+                    ))}
+                  </Sidebar>
+                  <Content>
+                    <Title size='3' isUppercase style={{ marginTop: '2rem' }}>
+                      Education:
+                    </Title>
+                    {information.education.map((elem) => (
+                      <Description key={elem.id} id={elem.id}>
+                        {elem.text}
+                      </Description>
+                    ))}
+                    <Title size={'3'} isUppercase style={{ marginTop: '2rem' }}>
+                      References:
+                    </Title>
+                    <Description>{information.references}</Description>
+                  </Content>
+                </Row>
+              </div>
+            </Wrapper>
+          </Left>
+          <Right>
+            <Wrapper>
+              <div className='ui-container'>
+                <Row itemsCenter>
+                  <Sidebar>
+                    <Avatar />
+                  </Sidebar>
+                  <Content>
+                    <Title
+                      isShowButton
+                      onClick={handleNameSave}
+                      buttonText='Save name'>
+                      {information.name}
+                    </Title>
+                    <Description
+                      isShowButton
+                      onClick={handleDescriptionSave}
+                      buttonText='Save description'>
+                      {information.description}
+                    </Description>
+                  </Content>
+                </Row>
+                <Row>
+                  <Sidebar>
+                    <Title size='3' isUppercase>
+                      About me:
+                    </Title>
+                    <Description
+                      isShowButton
+                      buttonText='save'
+                      onClick={handleAboutPrimarySave}>
+                      {information.aboutPrimary}
+                    </Description>
+                    <Description
+                      isSecondary
+                      isShowButton
+                      buttonText='Save'
+                      onClick={handleAboutSecondarySave}>
+                      {information.aboutSecondary}
+                    </Description>
+                    <Title
+                      size='3'
+                      isUppercase
+                      isShowButton
+                      buttonText='Add element'
+                      onClick={handleSkillsAddClick}>
+                      Skills:
+                    </Title>
+                    {information.skills.map((elem) => (
+                      <Range
+                        key={elem.id}
                         id={elem.id}
-                        size={'4'}
                         isShowButton
-                        buttonText='Add list item'
-                        onClick={handleAddListItem}>
-                        {index + 1}. {elem.title}
-                      </Title>
-                      <Button
-                        key={uniqid()}
-                        className='ui-button isLink'
-                        onClick={handleWorkExpTitleSave}>
-                        Save title
-                      </Button>
-                      <Description
-                        isSecondary
-                        isShowButton
-                        buttonText='Save'
-                        onClick={handleWorkExpPeriodSave}>
-                        <span>{elem.period}</span>
-                      </Description>
-                      <Description
-                        isSecondary
-                        isShowButton
-                        buttonText='Save'
-                        onClick={handleWorkExpEmployerSave}>
-                        <span>{elem.employer}</span>
-                      </Description>
-                      <Description
-                        isSecondary
-                        isShowButton
-                        buttonText='Save'
-                        onClick={handleWorkExpCitySave}>
-                        <span>{elem.city}</span>
-                      </Description>
-                      <ul id={elem.id} className='ui-ul'>
-                        {elem.list.map((item) => (
-                          <div key={uniqid()}>
-                            <li
-                              key={uniqid()}
-                              id={item.id}
-                              className='ui-li'
-                              contentEditable
-                              suppressContentEditableWarning
-                              spellCheck={false}>
-                              {item.activity}
-                            </li>
-                            <ButtonGroup key={uniqid()}>
-                              <Button
+                        name={elem.name}
+                        percent={elem.percent}
+                        onClickSave={handleSkillsSaveClick}
+                        onClickRemove={handleSkillsRemoveClick}
+                      />
+                    ))}
+                  </Sidebar>
+                  <Content>
+                    <Title
+                      size='3'
+                      isUppercase
+                      isShowButton
+                      buttonText='Add element'
+                      onClick={handleWorkExperienceAddClick}>
+                      Work experience:
+                    </Title>
+                    {workExperience.map((elem, index) => (
+                      <div key={uniqid()} id={elem.id}>
+                        <Title
+                          id={elem.id}
+                          size={'4'}
+                          isShowButton
+                          buttonText='Add list item'
+                          onClick={handleAddListItem}>
+                          {index + 1}. {elem.title}
+                        </Title>
+                        <Button
+                          key={uniqid()}
+                          className='ui-button isLink'
+                          onClick={handleWorkExpTitleSave}>
+                          Save title
+                        </Button>
+                        <Description
+                          isSecondary
+                          isShowButton
+                          buttonText='Save'
+                          onClick={handleWorkExpPeriodSave}>
+                          <span>{elem.period}</span>
+                        </Description>
+                        <Description
+                          isSecondary
+                          isShowButton
+                          buttonText='Save'
+                          onClick={handleWorkExpEmployerSave}>
+                          <span>{elem.employer}</span>
+                        </Description>
+                        <Description
+                          isSecondary
+                          isShowButton
+                          buttonText='Save'
+                          onClick={handleWorkExpCitySave}>
+                          <span>{elem.city}</span>
+                        </Description>
+                        <ul id={elem.id} className='ui-ul'>
+                          {elem.list.map((item) => (
+                            <div key={uniqid()}>
+                              <li
                                 key={uniqid()}
-                                className='ui-button isLink'
-                                onClick={handleListItemSave}>
-                                Save list item
-                              </Button>
-                              <Button
-                                key={uniqid()}
-                                className='ui-button isLink'
-                                onClick={handleRemoveListItem}>
-                                Remove list item
-                              </Button>
-                            </ButtonGroup>
-                          </div>
-                        ))}
-                      </ul>
-                      <Button
-                        key={uniqid()}
-                        className='ui-button isLink'
-                        onClick={handleWorkExperienceRemoveClick}>
-                        Remove work experience element
-                      </Button>
-                    </div>
-                  ))}
-                </Content>
-              </Row>
-              <Row>
-                <Sidebar></Sidebar>
-                <Content>
-                  <Title size={'3'} isUppercase>
-                    References:
-                  </Title>
-                  <Description
-                    isShowButton
-                    buttonText='Save'
-                    onClick={handleReferencesSave}>
-                    {information.references}
-                  </Description>
-                </Content>
-              </Row>
-            </div>
-            <Button className='ui-button isLink' onClick={handleResetClick}>
-              Reset
-            </Button>
-          </Wrapper>
+                                id={item.id}
+                                className='ui-li'
+                                contentEditable
+                                suppressContentEditableWarning
+                                spellCheck={false}>
+                                {item.activity}
+                              </li>
+                              <ButtonGroup key={uniqid()}>
+                                <Button
+                                  key={uniqid()}
+                                  className='ui-button isLink'
+                                  onClick={handleListItemSave}>
+                                  Save list item
+                                </Button>
+                                <Button
+                                  key={uniqid()}
+                                  className='ui-button isLink'
+                                  onClick={handleRemoveListItem}>
+                                  Remove list item
+                                </Button>
+                              </ButtonGroup>
+                            </div>
+                          ))}
+                        </ul>
+                        <Button
+                          key={uniqid()}
+                          className='ui-button isLink'
+                          onClick={handleWorkExperienceRemoveClick}>
+                          Remove work experience element
+                        </Button>
+                      </div>
+                    ))}
+                  </Content>
+                </Row>
+                <Row>
+                  <Sidebar>
+                    <Title size={'3'} isUppercase>
+                      Contacts:
+                    </Title>
+                    <Description
+                      isPrimary
+                      style={{ marginTop: '2rem' }}
+                      isShowButton
+                      buttonText='Save'
+                      onClick={handleAddressSave}>
+                      <i className='fa-solid fa-location-dot'></i>{' '}
+                      {information.address}
+                    </Description>
+                    <Description
+                      isPrimary
+                      isShowButton
+                      buttonText='Save'
+                      onClick={handleEmailSave}>
+                      <i className='fa-solid fa-envelope'></i>{' '}
+                      {information.email}
+                    </Description>
+                    <Description
+                      isPrimary
+                      isShowButton
+                      buttonText='Save'
+                      onClick={handlePhoneSave}>
+                      <i className='fa-solid fa-phone'></i> {information.phone}
+                    </Description>
+                    <Title
+                      size={'3'}
+                      isUppercase
+                      isShowButton
+                      buttonText='Add element'
+                      onClick={handleAddLanguageElem}>
+                      Languages:
+                    </Title>
+                    {information.languages.map((elem) => (
+                      <div key={uniqid()}>
+                        <Description key={uniqid()} id={elem.id}>
+                          {elem.text}
+                        </Description>
+                        <ButtonGroup key={uniqid()}>
+                          <Button
+                            key={uniqid()}
+                            className='ui-button isLink'
+                            onClick={handleLanguageElemSave}>
+                            Save
+                          </Button>
+                          <Button
+                            key={uniqid()}
+                            className='ui-button isLink'
+                            onClick={handleRemoveLanguageElem}>
+                            Remove
+                          </Button>
+                        </ButtonGroup>
+                      </div>
+                    ))}
+                  </Sidebar>
+                  <Content>
+                    <Title
+                      size='3'
+                      isUppercase
+                      isShowButton
+                      buttonText='Add element'
+                      onClick={handleEducationAddClick}>
+                      Education:
+                    </Title>
+                    {information.education.map((elem) => (
+                      <div key={uniqid()}>
+                        <Description key={elem.id} id={elem.id}>
+                          {elem.text}
+                        </Description>
+                        <ButtonGroup key={uniqid()}>
+                          <Button
+                            key={uniqid()}
+                            className='ui-button isLink'
+                            onClick={handleEducationSave}>
+                            Save element
+                          </Button>
+                          <Button
+                            key={uniqid()}
+                            className='ui-button isLink'
+                            onClick={handleEducationRemoveClick}>
+                            Remove element
+                          </Button>
+                        </ButtonGroup>
+                      </div>
+                    ))}
+                    <Title size={'3'} isUppercase>
+                      References:
+                    </Title>
+                    <Description
+                      isShowButton
+                      buttonText='Save'
+                      onClick={handleReferencesSave}>
+                      {information.references}
+                    </Description>
+                  </Content>
+                </Row>
+              </div>
+              <button className='ui-button isLink' onClick={handleResetClick}>
+                Reset
+              </button>
+            </Wrapper>
+          </Right>
         </div>
       </div>
     </>
