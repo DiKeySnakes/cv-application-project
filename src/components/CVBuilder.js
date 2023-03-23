@@ -19,6 +19,18 @@ const Wrapper = styled.div`
   border: 2px solid black;
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   border-radius: 1rem;
+  margin-top: 2rem;
+`;
+
+const Sentence = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #eee9da;
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.1),
+    1px 1px 1px rgba(0, 0, 0, 0.9);
+  font-size: calc(1rem + 2vmin);
   margin-top: 6rem;
 `;
 
@@ -456,6 +468,7 @@ const CVBuilder = () => {
             gridTemplateColumns: '1fr 1fr',
           }}>
           <Left>
+            <Sentence>Here is your CV preview</Sentence>
             <Wrapper>
               <div className='ui-container' ref={componentRef}>
                 <Row itemsCenter>
@@ -566,6 +579,7 @@ const CVBuilder = () => {
             </Wrapper>
           </Left>
           <Right>
+            <Sentence>Here you can edit your CV</Sentence>
             <Wrapper>
               <div className='ui-container'>
                 <Row itemsCenter>
