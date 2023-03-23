@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Logo from '../assets/images/cv_logo_square_white_blue_shadow.png';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -44,7 +45,17 @@ const Title = styled.div`
   justify-content: center;
   align-items: left;
   white-space: nowrap;
-  font-size: calc(0.5rem + 2vmin);
+  font-size: calc(1rem + 2vmin);
+  margin-left: 0.5rem;
+`;
+
+const LogoWrapper = styled.div`
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Button = styled.button`
@@ -69,6 +80,9 @@ function Header(props) {
   return (
     <Wrapper>
       <TitleWrapper>
+        <LogoWrapper>
+          <img src={Logo} alt='Logo'></img>
+        </LogoWrapper>
         <Title>CV Builder</Title>
       </TitleWrapper>
       <Button onClick={props.onClick}>
